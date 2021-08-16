@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+      integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="../static/style.css" />
+
+    <title>Basic Banking System</title>
+  </head>
+  <body>
+    <nav id="navbar">
+      <ul>
+        <div id="logo">
+          <img src="/static/image/logo.png" , alt="" />
+        </div>
+        <li><a href="/"> Home </a></li>
+        <li><a href="/view" class="active"> Our Customers </a></li>
+        <li><a href="/transaction"> Transaction history </a></li>
+      </ul>
+    </nav>
+    <section id="tableone" style="overflow-x: auto">
+      <table class="table" id="viewCustomers" class="list">
+        <div class="h1">Our Customers</div>
+
+        <thead>
+          <tr style="background-color: #060108; color: white">
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Balance</th>
+            <th scope="col">Details</th>
+          </tr>
+        </thead>
+        <tbody>
+          <%list.forEach(customer=> {%>
+          <tr>
+            <th scope="row"><%= customer.name%></th>
+            <td><%= customer.email%></td>
+            <td><%= customer.balance%></td>
+            <td>
+              <button
+                style="
+                  border: 2px solid white;
+                  background-color: rgb(159, 241, 187);
+                  border-radius: 4px;
+                  font-size: 16px;
+                  padding: 10px;
+                  font-weight: bold;
+                "
+              >
+                <a
+                  onclick="show('<%= customer.name %>','<%= customer.email %>','<%= customer.balance %>')"
+                  >View</a
+                >
+              </button>
+            </td>
+          </tr>
+          <%})%>
+        </tbody>
+      </table>
+    </section>
+    <section style="overflow-x: auto">
+      <table id="showCustomer" style="display: none">
+        <thead>
+          <tr style="background-color: #764292; color: white">
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Balance</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr id="row">
+            <td id="name"></td>
+            <td id="email"></td>
+            <td id="balance"></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+    <div id="con" style="display: none">
+      <form action="/transfer" method="post">
+        <div class="row">
+          <div class="col-25">
+            <label>Username: </label>
+          </div>
+          <div class="col-75">
+            <input type="text" id="from" name="from" placeholder="Sender.." />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-25">
+            <label for="country">Choose a Receiver: </label>
+          </div>
+          <div class="col-75">
+            <select id="receive" name="name">
+              <%list.forEach(customer=> {%>
+              <option value="<%= customer.name%>"><%= customer.name%></option>
+              <%})%>
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-25">
+            <label for="subject">Amount:</label>
+          </div>
+          <div class="col-75">
+            <input
+              type="number"
+              id="amount"
+              name="amount"
+              placeholder="Amount.."
+              style="height: 58px"
+            />
+          </div>
+        </div>
+        <div class="row">
+          <input type="submit" value="Transact" onclick="success()" />
+        </div>
+        <div class="row">
+          <h2 id="success"></h2>
+        </div>
+      </form>
+    </div>
+    <footer id="footer">Developed by Sandy | @TheSparksFoundation</footer>
+    <script src="/static/check.js"></script>
+    <script src="/static/transaction.js"></script>
+  </body>
+</html>
