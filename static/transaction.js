@@ -1,4 +1,3 @@
-/*fetch('https://meenalnetbanking.herokuapp.com/transfer')*/
 fetch('http://localhost:4000/transfer')
   .then((apidata) => {
     console.log(apidata);
