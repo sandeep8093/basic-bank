@@ -1,4 +1,4 @@
-fetch('http://localhost:4000/transfer')
+fetch('https://basic-banking-service.onrender.com/transfer')
   .then((apidata) => {
     // console.log(apidata);
     return apidata.json();
