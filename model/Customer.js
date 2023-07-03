@@ -9,4 +9,4 @@ const customersSchema = mongoose.Schema(
   { minimize: false }
 );
 
-module.exports = mongoose.model('Customer', customersSchema);
+module.exports = mongoose.model('Customers', customersSchema);

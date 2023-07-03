@@ -1,17 +1,28 @@
 const router = require('express').Router();
-const customer=require('../model/Customer');
+const Customer=require('../model/Customer');
 const historymodel=require('../model/History');
 
-
+// /CREATE
+router.post("/create",async (req, res) => {
+  const newCustomer = new Customer(req.body);
+  try {
+    const savedCustomer = await newCustomer.save();
+    res.status(200).json(savedCustomer);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
 router.get('/', (req, res) => {
-    customer.find({}, function (err, customer) {
+  Customer.find({}, function (err, customer) {
       res.render('home', {
         list: customer,
       });
+      console.log(customer)
     });
   });
   router.get('/view', (req, res) => {
-    customer.find({}, function (err, customer) {
+    Customer.find({}, function (err, customer) {
+
       res.render('index', {
         list: customer,
       });
@@ -26,7 +37,7 @@ router.get('/', (req, res) => {
     const from = req.body.from;
     const amount = req.body.amount;
     try {
-      const senderamount = await customer.findOne({ name: from });
+      const senderamount = await Customer.findOne({ name: from });
       if (amount > 0 && amount < senderamount.balance && name != from) {
         var historydata = new historymodel(req.body);
         await historydata.save(function (err, doc) {
@@ -40,9 +51,9 @@ router.get('/', (req, res) => {
       console.log('could not save');
     }
     try {
-      const senderamount = await customer.findOne({ name: from });
+      const senderamount = await Customer.findOne({ name: from });
       if (amount < senderamount.balance) {
-        await customer.findOneAndUpdate(
+        await Customer.findOneAndUpdate(
           {
             name: name,
           },
@@ -50,7 +61,7 @@ router.get('/', (req, res) => {
             $inc: { balance: amount },
           }
         );
-        await customer.findOneAndUpdate(
+        await Customer.findOneAndUpdate(
           {
             name: from,
           },
