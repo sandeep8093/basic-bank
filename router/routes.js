@@ -17,7 +17,7 @@ router.get('/', (req, res) => {
       res.render('home', {
         list: customer,
       });
-      console.log(customer)
+      // console.log(customer)
     });
   });
   router.get('/view', (req, res) => {

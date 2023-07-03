@@ -1,6 +1,6 @@
 fetch('http://localhost:4000/transfer')
   .then((apidata) => {
-    console.log(apidata);
+    // console.log(apidata);
     return apidata.json();
   })
   .then((actualdata) => {
